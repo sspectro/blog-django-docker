@@ -1,3 +1,10 @@
+/djangoapp/static/
+/djangoapp/media/
+/djangoapp/project/local_settings.py
+gunicorn-error-log
+__localcode
+/data/
+
 # Created by https://www.toptal.com/developers/gitignore/api/python,django,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,django,visualstudiocode
 

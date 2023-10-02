@@ -51,16 +51,6 @@ Linux, Visual Studio Code, Docker e PostgreSQL
 
     </details> 
 
-
-    <details><summary><span style="color:Chocolate">Detalhes</span></summary>
-    <p>
-
-    >Futuramente incluirei opções de publicação do projeto
-
-    </p>
-
-    </details> 
-
     ---
 
 ## Meta
