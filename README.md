@@ -226,6 +226,38 @@ Linux, Visual Studio Code, Docker e PostgreSQL
 
     ---
 
+4. <span style="color:383E42"><b>Criando e configurando `docker-compose.yml` - 01:06</b></span>
+    <details><summary><span style="color:Chocolate">Detalhes</span></summary>
+    <p>
+
+    - fdf
+
+    - Executar build
+        ```bash
+        docker-compose up --build --force-recreate
+        ```
+    - Apenas atualizar
+        ```bash
+        docker-compose up --build
+        ``` 
+
+    - Erro - solução dar as permissões necessárias para pasta `data`
+        ```
+        djangoapp    |   File "<frozen os>", line 225, in makedirs
+        djangoapp    | PermissionError: [Errno 13] Permission denied: '/data/web/static/admin'
+        ```
+    
+    - Testar
+        ```
+        http://127.0.0.1:8000/
+        ```
+
+    </p>
+
+    </details> 
+
+    ---
+
 ## Meta
 ><span style="color:383E42"><b>Cristiano Mendonça Gueivara</b> </span>
 >
