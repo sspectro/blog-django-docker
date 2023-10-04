@@ -50,7 +50,93 @@ Linux, Visual Studio Code, Docker e PostgreSQL
         ```sh
         pip freeze > requirements.txt
         ```
+    - Criação d`.dockerignore` - [Git com exemplo projeto python](https://gist.github.com/KernelA/04b4d7691f28e264f72e76cfd724d448)
 
+
+    </p>
+
+    </details> 
+
+    ---
+
+1. <span style="color:383E42"><b>Variáveis de Ambiente - Configuração `settings.py` e rota</b></span>
+    <details><summary><span style="color:Chocolate">Detalhes</span></summary>
+    <p>
+
+    - Criar `dotenv_files` e `dotenv_files/.env-example`
+        Arquivo de exemplo para criação do arquivo `.env` que será usado`
+    
+    - Gerar uma secretkey
+        ```bash
+        python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+        ```
+    
+    - Incluir informações no `djangoapp/project/settings.py` do arquivo com variáveis de ambiente
+        ```python
+        import os
+        from pathlib import Path
+        # Build paths inside the project like this: BASE_DIR / 'subdir'.
+        BASE_DIR = Path(__file__).resolve().parent.parent
+        DATA_DIR = BASE_DIR.parent / 'data' / 'web'
+        #...
+        # SECURITY WARNING: keep the secret key used in production secret!
+        SECRET_KEY = os.getenv('SECRET_KEY', 'change-me')
+        # SECURITY WARNING: don't run with debug turned on in production!
+        DEBUG = bool(int(os.getenv('DEBUG', 0)))
+        ALLOWED_HOSTS = [
+            h.strip() for h in os.getenv('ALLOWED_HOSTS', '').split(',')
+            if h.strip()
+        ]
+        #...
+        DATABASES = {
+            'default': {
+                'ENGINE': os.getenv('DB_ENGINE', 'change-me'),
+                'NAME': os.getenv('POSTGRES_DB', 'change-me'),
+                'USER': os.getenv('POSTGRES_USER', 'change-me'),
+                'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'change-me'),
+                'HOST': os.getenv('POSTGRES_HOST', 'change-me'),
+                'PORT': os.getenv('POSTGRES_PORT', 'change-me'),
+            }
+        }
+        #...
+        LANGUAGE_CODE = 'pt-br'
+
+        TIME_ZONE = 'America/Sao_Paulo'
+
+        USE_I18N = True
+
+        USE_TZ = True
+
+        # Static files (CSS, JavaScript, Images)
+        # https://docs.djangoproject.com/en/4.2/howto/static-files/
+        STATIC_URL = '/static/'
+        # /data/web/static
+        STATIC_ROOT = DATA_DIR / 'static'
+
+        MEDIA_URL = '/media/'
+        # /data/web/media
+        MEDIA_ROOT = DATA_DIR / 'media'
+        ```
+
+    - Configurar rota em `djangoapp/project/urls.py`
+        ```python
+        from django.conf import settings # settings do django, não é o settings.py
+        from django.conf.urls.static import static
+        from django.contrib import admin
+        from django.urls import path
+
+        urlpatterns = [
+            path('admin/', admin.site.urls),
+        ]
+
+        # Se DEBUG = true, adciona urls para permitir que veja arquivos enviados
+        # pelo usuário enquanto em desenvolvimento
+        if settings.DEBUG:
+            urlpatterns += static(
+                settings.MEDIA_URL,
+                document_root=settings.MEDIA_ROOT
+            )
+        ```
     </p>
 
     </details> 
