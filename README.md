@@ -31,14 +31,18 @@ Linux, Visual Studio Code, Docker e PostgreSQL
     - Instalação pip - se necessário
         ```sh
         sudo apt update
-        sudo apt install python3-pip
+        pip install pip --upgrade
         pip3 --version
         ```
-    - Instalar o `django`, `psycopg2-binary` (para trabalhar com PostgreSQL), `gunicorn`( servidor para python), `django-std-image`(para trabalhar com imagens)
+    - Instalar o `django`
         ```bash
         sudo apt update
         pip3 install django
-        pip3 install psycopg2-binary gunicorn django-static django-stdimage
+        ```
+    - Criar pasta `djangoapp` e criar projeto.
+        Estando na pasata
+        ```bash
+        django-admin startproject project .
         ```
 
     - Criação arquivo requirements
