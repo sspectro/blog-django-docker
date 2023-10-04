@@ -45,7 +45,7 @@ Linux, Visual Studio Code, Docker e PostgreSQL
         django-admin startproject project .
         ```
 
-    - Criação arquivo requirements
+    - Criação arquivo requirements na pasta `djangoapp`
     Contém informaçẽos sobre todas as bibliotecas utilizadas no projeto. Para atualizar o arquivo, basta executar o comando novamente após instalar outras bibliotecas.
         ```sh
         pip freeze > requirements.txt
