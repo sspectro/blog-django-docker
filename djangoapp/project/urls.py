@@ -17,9 +17,10 @@ Including another URLconf
 from django.conf import settings # settings do django, não é o settings.py
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 urlpatterns = [
+    path('', include('blog.urls')),
     path('admin/', admin.site.urls),
 ]
 

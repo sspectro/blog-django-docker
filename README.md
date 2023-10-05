@@ -272,11 +272,105 @@ Linux, Visual Studio Code, Docker e PostgreSQL
         djangoapp    |   File "<frozen os>", line 225, in makedirs
         djangoapp    | PermissionError: [Errno 13] Permission denied: '/data/web/static/admin'
         ```
-    
+    - Subir/iniciar os containers do projeto 
+        Estando na pasta raiz, local do dockerfile de docker-compose
+        ```bash
+        docker-compose up
+        ```
+
     - Testar
         ```
         http://127.0.0.1:8000/
         ```
+
+    </p>
+
+    </details> 
+
+    ---
+
+5. <span style="color:383E42"><b>Criação app `blog` - Template e View</b></span>
+    <details><summary><span style="color:Chocolate">Detalhes</span></summary>
+    <p>
+
+    - Criando um app no container `djangoapp`
+        ```bash
+        docker-compose run djangoapp python manage.py startapp blog
+        ```
+    - Criando superuser django
+        ```bash
+        sudo docker-compose run djangoapp python manage.py createsuperuser
+        ```
+
+    - Acessando o container `djangoapp`
+        ```bash
+        docker exec -it djangoapp sh
+        ```
+
+    - Criação pasta e arquivo `djangoapp/blog/templates/blog/index.html`
+        ```html
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Meu blog</title>
+        </head>
+        <body>
+            <h1>Meu blog</h1>
+        </body>
+        </html>
+        ```
+    
+    - Criar view `index`
+        ```python
+        from django.shortcuts import render
+
+        # Create your views here.
+        def index(request):
+            return render(request, 'blog/index.html')
+        ```
+
+    - Criar arquivo de urls do app blog `djangoapp/blog/urls.py`
+        ```python
+        from django.contrib import admin
+        from django.urls import path
+        from blog.views import index
+
+        app_name = 'blog'
+
+        urlpatterns = [
+            # blog:index
+            path('', index, name='index'),
+        ]
+        ```
+
+    - Editar urls do projeto `djangoapp/project/urls.py`
+        ```python
+        #...
+        from django.urls import path, include
+
+        urlpatterns = [
+            path('', include('blog.urls')),
+            path('admin/', admin.site.urls),
+        ]
+        #...
+        ```
+
+    - Incluir app `blog` em `settings.py`
+        ```python
+        INSTALLED_APPS = [
+            'django.contrib.admin',
+            'django.contrib.auth',
+            'django.contrib.contenttypes',
+            'django.contrib.sessions',
+            'django.contrib.messages',
+            'django.contrib.staticfiles',
+            'blog'
+        ]
+        ```
+    - Testar página - atualizar página
+
 
     </p>
 
